@@ -1,5 +1,7 @@
 .text
 
+.align 4
+
 .globl _exit
 .globl _fork
 .globl _read
