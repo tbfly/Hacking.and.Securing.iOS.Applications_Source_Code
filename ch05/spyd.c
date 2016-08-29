@@ -22,7 +22,6 @@
 int cp(const char *src, const char *dest) {
     char buf[0x800];
     int in, out, nr = 0;
-    struct stat 2;
 
     printf("copying %s to %s\n", src, dest);
     in = open(src, O_RDONLY, 0);
