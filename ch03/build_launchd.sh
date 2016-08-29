@@ -1,15 +1,16 @@
-export PLATFORM=/Developer/Platforms/iPhoneOS.platform
 
-$PLATFORM/Developer/usr/bin/arm-apple-darwin10-llvm-gcc-4.2 \
-    -c syscalls.S -o syscalls.o
+export PLATFORM=/Applications/Xcode.app/Contents/Developer/Platforms/
 
-$PLATFORM/Developer/usr/bin/arm-apple-darwin10-llvm-gcc-4.2 \
-   -c launchd.c -o launchd.o \
-   -isysroot $PLATFORM/Developer/SDKs/iPhoneOS5.0.sdk \
-   -I$PLATFORM/Developer/SDKs/iPhoneOS5.0.sdk/usr/include \
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang \
+   -arch armv7 -c syscalls.S -o syscalls.o
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang \
+   -arch armv7 -c launchd.c -o launchd.o \
+   -isysroot $PLATFORM/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk \
+   -I$PLATFORM/Developer/SDKs/iPhoneOS.sdk/usr/include \
    -I.
 
-$PLATFORM/Developer/usr/bin/arm-apple-darwin10-llvm-gcc-4.2 \
-    -o launchd launchd.o syscalls.o \
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang \
+    -arch armv7 -o launchd launchd.o syscalls.o \
     -static -nostartfiles -nodefaultlibs -nostdlib -Wl,-e,_main
 

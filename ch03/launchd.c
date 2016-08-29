@@ -1,7 +1,9 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
-#include "/usr/include/hfs/hfs_mount.h"
+#include <unistd.h>
+//#include "/usr/include/hfs/hfs_mount.h"
+#include "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-migrator/sdk/MacOSX.sdk/usr/include/hfs/hfs_mount.h"
 
 #define O_RDONLY        0x0000
 #define O_WRONLY        0x0001
@@ -19,7 +21,7 @@ const char* fsck_hfs[] =
 const char* fsck_hfs_user[] = 
     { "/sbin/fsck_hfs", "-y", "/dev/rdisk0s2s1", NULL };
 
-void sleep(unsigned int sec) {
+void my_sleep(unsigned int sec) {
     int i;
     for (i = sec * 10000000; i>0; i--) { }
 }
@@ -77,7 +79,7 @@ int fsexec(char* argv[], char* env[], int pause) {
     if (pid != 0) {
         if (pause) {
             while (wait4(pid, NULL, WNOHANG, NULL) <= 0) {
-                sleep(1);
+                my_sleep(1);
             }
         } else {
             return pid;
@@ -98,7 +100,7 @@ int main(int argc, char **argv, char **env) {
     console = open("/dev/console", O_WRONLY);
     dup2(console, 1);
 
-    sleep(5);
+    my_sleep(5);
     for(i=0;i<75;i++) 
         puts("\n");
     puts("ramdisk initialized.\n");
@@ -106,14 +108,14 @@ int main(int argc, char **argv, char **env) {
     puts("searching for disk...\n");
     while (stat("/dev/disk0s1", &s) != 0) {
         puts("waiting for /dev/disk0s1 to appear...\n");
-        sleep(30);
+        my_sleep(30);
     }
 
     puts("mounting root filesystem...\n");
     while(1) {
         if (hfs_mount("/dev/disk0s1", "/mnt", MNT_ROOTFS | MNT_RDONLY) != 0) {
               puts("unable to mount filesystem, waiting...\n");
-              sleep(10);
+              my_sleep(10);
          } else {
              break;
          }
