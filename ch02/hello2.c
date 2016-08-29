@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #define FILE "/var/mobile/Library/AddressBook/AddressBook.sqlitedb"
 
@@ -10,7 +11,7 @@ int main() {
     int nr;
 
     if (fd < 0)
-        exit -1;
+        exit(-1);
     while ((nr = read(fd, buf, sizeof(buf))) > 0) {
         write(fileno(stdout), buf, nr);
     }
