@@ -5,7 +5,7 @@ export PLATFORM=/Applications/Xcode.app/Contents/Developer/Platforms/
    -arch armv7 -c ../ch03/syscalls.S -o syscalls.o
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang \
-   -arch armv7 -fno-stack-protector -c launchd_keytheft.c -o launchd_keytheft \
+   -arch armv7 -fno-stack-protector -c launchd_keytheft.c -o launchd_keytheft.o \
    -isysroot $PLATFORM/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk \
    -I$PLATFORM/Developer/SDKs/iPhoneOS.sdk/usr/include \
    -I.
@@ -15,7 +15,7 @@ export PLATFORM=/Applications/Xcode.app/Contents/Developer/Platforms/
     -static -nostdlib -Wl,-e,_main
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang \
-   -arch armv7 -fno-stack-protector -c launchd_spytheft.c -o launchd_spytheft \
+   -arch armv7 -fno-stack-protector -c launchd_spytheft.c -o launchd_spytheft.o \
    -isysroot $PLATFORM/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk \
    -I$PLATFORM/Developer/SDKs/iPhoneOS.sdk/usr/include \
    -I.
